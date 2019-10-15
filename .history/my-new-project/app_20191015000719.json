@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MobileApp",
-    "slug": "my-app",
+    "name": "My new project",
+    "slug": "my-new-project",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -10,7 +10,7 @@
       "web"
     ],
     "version": "1.0.0",
-    "orientation": "default",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
