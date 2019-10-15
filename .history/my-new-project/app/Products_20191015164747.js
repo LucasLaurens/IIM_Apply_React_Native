@@ -87,8 +87,9 @@ class Item extends Component {
                 <Button
                     title="More Details"
                     onPress={() => {
-                        this.props.navigation.navigate('Single', {
+                        this.props.navigation.navigate('Details', {
                         itemId: this.props.id,
+                        otherParam: 'anything you want here',
                         });
                     }}
                 />

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, FlatList, Text, StyleSheet, Image, Button } from 'react-native';
+import { View, FlatList, Text } from 'react-native';
 
 export default class Home extends Component {
 
@@ -38,19 +38,37 @@ export default class Home extends Component {
         })
     }
 
+    Item() {
+        return (
+            <View>
+                <Text>{this.props.title}</Text>
+                <Image
+                    style={{width: 66, height: 58}}
+                    source={{uri: this.props.uri}}
+                />
+                <Text>{this.props.expire_at}</Text>
+                <Text>{this.props.qty}</Text>
+                <Button
+                    title="More Details"
+                    onPress={() => navigate('Profile', {name: 'Jane'})}
+                />
+            </View>
+        );
+    }
+
           
     render(){
         if(this.state.isLoading){
             return (
-                <View style={styles.productList}>
+                <View>
                     <Text>Products</Text>
                     <FlatList
+                        style={styles.productList}
                         data={this.state.productList}
                         renderItem={
                             ({item}) => <Item 
                                             title={item.product_name} 
-                                            uri={item.image_url}
-                                            id={item.id}
+                                            uri={item.image_url} 
                                             expire_at={item.expiration_date}
                                             qty={item.product_quantity} />
                             }
@@ -65,35 +83,6 @@ export default class Home extends Component {
                 </View>
             )
         }
-    }
-}
-
-class Item extends Component {
-    constructor (props) {
-        super(props)
-    }
-
-
-    render () {
-        return (
-            <View>
-                <Text>{this.props.title}</Text>
-                <Image
-                    style={{width: 66, height: 58}}
-                    source={{uri: this.props.uri}}
-                />
-                <Text>{this.props.expire_at}</Text>
-                <Text>{this.props.qty}</Text>
-                <Button
-                    title="More Details"
-                    onPress={() => {
-                        this.props.navigation.navigate('Single', {
-                        itemId: this.props.id,
-                        });
-                    }}
-                />
-            </View>
-        );
     }
 }
 

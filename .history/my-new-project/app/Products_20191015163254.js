@@ -49,8 +49,7 @@ export default class Home extends Component {
                         renderItem={
                             ({item}) => <Item 
                                             title={item.product_name} 
-                                            uri={item.image_url}
-                                            id={item.id}
+                                            // uri={item.image_url} 
                                             expire_at={item.expiration_date}
                                             qty={item.product_quantity} />
                             }
@@ -67,6 +66,13 @@ export default class Home extends Component {
         }
     }
 }
+
+const styles = StyleSheet.create({
+    productList: {
+        backgroundColor: "#ccc",
+        color: "#444"
+    }
+})
 
 class Item extends Component {
     constructor (props) {
@@ -86,20 +92,9 @@ class Item extends Component {
                 <Text>{this.props.qty}</Text>
                 <Button
                     title="More Details"
-                    onPress={() => {
-                        this.props.navigation.navigate('Single', {
-                        itemId: this.props.id,
-                        });
-                    }}
+                    onPress={() => navigate('Profile', {name: 'Jane'})}
                 />
             </View>
         );
     }
 }
-
-const styles = StyleSheet.create({
-    productList: {
-        backgroundColor: "#ccc",
-        color: "#444"
-    }
-})
