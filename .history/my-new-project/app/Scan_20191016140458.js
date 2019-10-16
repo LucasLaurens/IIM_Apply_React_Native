@@ -35,8 +35,11 @@ async componentDidMount() {
         <View style={{ flex: 1 }}>
           <Camera style={{ flex: 1 }} onBarCodeScanned={(response) => {
             this.props.navigation.navigate('Single', {
-                itemId: response.data,
+                itemId: this.props.itemId,
+                response.data
             });
+            console.log(response)
+            return response
           }}>
             <View
               style={{

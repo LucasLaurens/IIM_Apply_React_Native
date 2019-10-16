@@ -44,29 +44,19 @@ export default class Products extends Component {
         if(this.state.isLoading){
             return (
                 <View>
-                    <View >
-                        <Button
-                            title="Scan"
-                            onPress={() => {
-                                this.props.navigation.navigate('Scan');
-                            }}
+                    <FlatList
+                        data={this.state.productList}
+                        renderItem={
+                            ({item, index}) => <Item
+                                            index={index} 
+                                            title={item.product_name} 
+                                            uri={item.image_url}
+                                            id={item.id}
+                                            expire_at={item.expiration_date}
+                                            qty={item.product_quantity} />
+                            }
+                        keyExtractor={({id}, i) => id }
                         />
-                    </View>
-                    <View>
-                        <FlatList
-                            data={this.state.productList}
-                            renderItem={
-                                ({item, index}) => <Item
-                                                index={index} 
-                                                title={item.product_name} 
-                                                uri={item.image_url}
-                                                id={item.id}
-                                                expire_at={item.expiration_date}
-                                                qty={item.product_quantity} />
-                                }
-                            keyExtractor={({id}, i) => id }
-                            />
-                    </View>
                 </View>
             )
         } else {

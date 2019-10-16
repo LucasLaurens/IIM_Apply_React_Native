@@ -44,14 +44,6 @@ export default class Products extends Component {
         if(this.state.isLoading){
             return (
                 <View>
-                    <View >
-                        <Button
-                            title="Scan"
-                            onPress={() => {
-                                this.props.navigation.navigate('Scan');
-                            }}
-                        />
-                    </View>
                     <View>
                         <FlatList
                             data={this.state.productList}
@@ -66,6 +58,14 @@ export default class Products extends Component {
                                 }
                             keyExtractor={({id}, i) => id }
                             />
+                    </View>
+                    <View>
+                        <Button
+                            title="Scan"
+                            onPress={() => {
+                                this.props.navigation.navigate('Scan');
+                            }}
+                        />
                     </View>
                 </View>
             )

@@ -14,7 +14,8 @@ export default class Scan extends React.Component {
 
     this.state = {
         ScanRoute: this.props.navigation.getParam('Scan', 0),
-        hasCameraPermission: null
+        asCameraPermission: null,
+        type: Camera.Constants.Type.back
     }
   }
 
@@ -34,9 +35,7 @@ async componentDidMount() {
       return (
         <View style={{ flex: 1 }}>
           <Camera style={{ flex: 1 }} onBarCodeScanned={(response) => {
-            this.props.navigation.navigate('Single', {
-                itemId: response.data,
-            });
+            console.log(response)
           }}>
             <View
               style={{
