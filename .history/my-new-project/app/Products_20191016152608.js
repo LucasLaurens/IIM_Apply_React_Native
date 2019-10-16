@@ -67,7 +67,7 @@ export default class Products extends Component {
                             renderItem={
                                 ({item, index}) => <Item
                                                 products={item}
-                                                index={index}
+                                                index={index} 
                                                 title={item.product_name} 
                                                 uri={item.image_small_url}
                                                 id={item.id}
@@ -107,12 +107,10 @@ class Item extends Component {
                 <Text style={[styles.listText, {marginTop: 15}, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Expire at : {this.props.expire_at}</Text>
                 <Text style={[styles.listText, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Quantity : {this.props.qty}</Text>
                 <Btn
-                    buttonStyle={(this.props.index%2 == 0) ? {borderColor: "#FFF"} : {borderColor: "#e74c3c"}}
+                    buttonStyle={(this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
                     titleStyle={(this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
-                    iconColor={(this.props.index%2 == 0) ? "#FFF" : "#e74c3c"}
                     style={styles.margin}
                     itemId={this.props.id}
-                    index={this.props.index}
                 />
             </View>
         );

@@ -24,7 +24,8 @@ export default class extends Component {
                 })
                 .then(response => {
                     this.setState({
-                        product: response.product
+                        product: response.product,
+                        index: response.index
                     })
                 }).catch(e => {
                     console.error(e)
@@ -32,15 +33,15 @@ export default class extends Component {
     }
 
     render() {
-        const { product, index } = this.state
+        const { product } = this.state
         return(
-            <View style={[styles.list, (index%2 != 0) ? {backgroundColor: "#FFF"} : {backgroundColor: "#e74c3c"}]}>
-                <Text style={[styles.name, styles.margin, (index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{ product.product_name }</Text>
+            <View style={[styles.list]}>
+                <Text style={[styles.name, styles.margin]}>{ product.product_name }</Text>
                 <Image
                     style={[styles.image, {height: 250}]}
                     source={{uri: product.image_url}}
                 />
-                <Text style={[styles.text, styles.margin, (index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}> categories ({product.categories}) </Text>
+                <Text style={[styles.text, styles.margin]}> categories ({product.categories}) </Text>
             </View>
         )
     }
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     },
     list: {
         width: "100%",
+        backgroundColor: "#c0392b",
         height: "100%"
     },
     image: {
@@ -60,9 +62,11 @@ const styles = StyleSheet.create({
     name: {
         textAlign: "center",
         fontWeight: "700",
+        color: "#fff",
         fontSize: 30
     },
     text: {
+        color: "#fff",
         fontSize: 15
     }
 

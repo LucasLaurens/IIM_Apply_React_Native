@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, FlatList, Text, StyleSheet, Image } from 'react-native';
 import Btn from './utilities/Button';
-import { Button } from 'react-native-elements';
+import { Button, Card, ListItem } from 'react-native-elements';
 
 export default class Products extends Component {
 
@@ -47,13 +47,6 @@ export default class Products extends Component {
                 <View>
                     <View >
                         <Button
-                            buttonStyle= {{
-                                backgroundColor: "#c0392b"
-                            }}
-                            titleStyle={{
-                                color: "#fff",
-                                fontWeight: "700"
-                            }}
                             type="solid"
                             title="Scan"
                             onPress={() => {
@@ -62,12 +55,23 @@ export default class Products extends Component {
                         />
                     </View>
                     <View>
-                        <FlatList
+                        <Card containerStyle={{padding: 0}} >
+                            {
+                                this.state.productList.map((p, i) => {
+                                return (
+                                        <ListItem
+                                        key={i}
+                                        title={postMessage.product_name}
+                                        />
+                                    );
+                                })
+                            }
+                        </Card>
+                        {/* <FlatList
                             data={this.state.productList}
                             renderItem={
                                 ({item, index}) => <Item
-                                                products={item}
-                                                index={index}
+                                                index={index} 
                                                 title={item.product_name} 
                                                 uri={item.image_small_url}
                                                 id={item.id}
@@ -75,7 +79,7 @@ export default class Products extends Component {
                                                 qty={item.product_quantity} />
                                 }
                             keyExtractor={({id}, i) => id }
-                            />
+                            /> */}
                     </View>
                 </View>
             )
@@ -103,16 +107,12 @@ class Item extends Component {
                     style={styles.img}
                     source={{uri: this.props.uri}}
                 />
-                <Text style={[styles.listName, styles.margin, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{this.props.title}</Text>
-                <Text style={[styles.listText, {marginTop: 15}, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Expire at : {this.props.expire_at}</Text>
-                <Text style={[styles.listText, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Quantity : {this.props.qty}</Text>
+                <Text style={[styles.listName, styles.margin]}>{this.props.title}</Text>
+                <Text style={[styles.listText, {marginTop: 15}]}>Expire at : {this.props.expire_at}</Text>
+                <Text style={[styles.listText]}>Quantity : {this.props.qty}</Text>
                 <Btn
-                    buttonStyle={(this.props.index%2 == 0) ? {borderColor: "#FFF"} : {borderColor: "#e74c3c"}}
-                    titleStyle={(this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
-                    iconColor={(this.props.index%2 == 0) ? "#FFF" : "#e74c3c"}
                     style={styles.margin}
                     itemId={this.props.id}
-                    index={this.props.index}
                 />
             </View>
         );
@@ -129,6 +129,7 @@ const styles = StyleSheet.create({
     listName: {
         textAlign: "center",
         fontWeight: "700",
+        color: "#c0392b",
         fontSize: 30
     },
     img: {
@@ -137,10 +138,11 @@ const styles = StyleSheet.create({
     },
     listText: {
         textAlign: "center",
+        color: "#e74c3c",
         fontSize: 15
     },
     jambotron: {
-        backgroundColor: "#e74c3c"
+        backgroundColor: "#000"
     },
     loading: {
         marginTop: "50%",

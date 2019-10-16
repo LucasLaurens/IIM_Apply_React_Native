@@ -30,7 +30,6 @@ class Btn extends Component {
                     onPress={() => {
                         this.props.navigation.navigate('Single', {
                             itemId: this.props.itemId,
-                            index: this.props.index
                         });
                     }}
                 />

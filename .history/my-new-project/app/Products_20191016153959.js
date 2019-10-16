@@ -68,6 +68,7 @@ export default class Products extends Component {
                                 ({item, index}) => <Item
                                                 products={item}
                                                 index={index}
+                                                Singleindex={index}
                                                 title={item.product_name} 
                                                 uri={item.image_small_url}
                                                 id={item.id}
@@ -112,7 +113,7 @@ class Item extends Component {
                     iconColor={(this.props.index%2 == 0) ? "#FFF" : "#e74c3c"}
                     style={styles.margin}
                     itemId={this.props.id}
-                    index={this.props.index}
+                    index={this.props.Singleindex}
                 />
             </View>
         );

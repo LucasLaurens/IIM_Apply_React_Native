@@ -48,10 +48,9 @@ export default class Products extends Component {
                     <View >
                         <Button
                             buttonStyle= {{
-                                backgroundColor: "#c0392b"
+                                backgroundColor: "#fff"
                             }}
                             titleStyle={{
-                                color: "#fff",
                                 fontWeight: "700"
                             }}
                             type="solid"
@@ -67,7 +66,7 @@ export default class Products extends Component {
                             renderItem={
                                 ({item, index}) => <Item
                                                 products={item}
-                                                index={index}
+                                                index={index} 
                                                 title={item.product_name} 
                                                 uri={item.image_small_url}
                                                 id={item.id}
@@ -103,16 +102,12 @@ class Item extends Component {
                     style={styles.img}
                     source={{uri: this.props.uri}}
                 />
-                <Text style={[styles.listName, styles.margin, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{this.props.title}</Text>
-                <Text style={[styles.listText, {marginTop: 15}, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Expire at : {this.props.expire_at}</Text>
-                <Text style={[styles.listText, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Quantity : {this.props.qty}</Text>
+                <Text style={[styles.listName, styles.margin]}>{this.props.title}</Text>
+                <Text style={[styles.listText, {marginTop: 15}]}>Expire at : {this.props.expire_at}</Text>
+                <Text style={[styles.listText]}>Quantity : {this.props.qty}</Text>
                 <Btn
-                    buttonStyle={(this.props.index%2 == 0) ? {borderColor: "#FFF"} : {borderColor: "#e74c3c"}}
-                    titleStyle={(this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
-                    iconColor={(this.props.index%2 == 0) ? "#FFF" : "#e74c3c"}
                     style={styles.margin}
                     itemId={this.props.id}
-                    index={this.props.index}
                 />
             </View>
         );
@@ -129,6 +124,7 @@ const styles = StyleSheet.create({
     listName: {
         textAlign: "center",
         fontWeight: "700",
+        color: "#fff",
         fontSize: 30
     },
     img: {
@@ -137,10 +133,11 @@ const styles = StyleSheet.create({
     },
     listText: {
         textAlign: "center",
+        color: "#e74c3c",
         fontSize: 15
     },
     jambotron: {
-        backgroundColor: "#e74c3c"
+        backgroundColor: "#000"
     },
     loading: {
         marginTop: "50%",

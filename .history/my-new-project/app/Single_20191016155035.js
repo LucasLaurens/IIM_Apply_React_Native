@@ -35,12 +35,12 @@ export default class extends Component {
         const { product, index } = this.state
         return(
             <View style={[styles.list, (index%2 != 0) ? {backgroundColor: "#FFF"} : {backgroundColor: "#e74c3c"}]}>
-                <Text style={[styles.name, styles.margin, (index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{ product.product_name }</Text>
+                <Text style={[styles.name, styles.margin, (index%2 != 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{ product.product_name }</Text>
                 <Image
                     style={[styles.image, {height: 250}]}
                     source={{uri: product.image_url}}
                 />
-                <Text style={[styles.text, styles.margin, (index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}> categories ({product.categories}) </Text>
+                <Text style={[styles.text, styles.margin, (index%2 != 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}> categories ({product.categories}) </Text>
             </View>
         )
     }

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { View, FlatList, Text, StyleSheet, Image } from 'react-native';
+import { View, FlatList, Text, StyleSheet, Button, Image } from 'react-native';
 import Btn from './utilities/Button';
-import { Button } from 'react-native-elements';
 
 export default class Products extends Component {
 
@@ -35,6 +34,7 @@ export default class Products extends Component {
                 productList: responseJson.products,
                 isLoading: true
             })
+            console.log(this.state.productList)
         }).catch(e => {
             console.error(e)
         })
@@ -47,14 +47,6 @@ export default class Products extends Component {
                 <View>
                     <View >
                         <Button
-                            buttonStyle= {{
-                                backgroundColor: "#c0392b"
-                            }}
-                            titleStyle={{
-                                color: "#fff",
-                                fontWeight: "700"
-                            }}
-                            type="solid"
                             title="Scan"
                             onPress={() => {
                                 this.props.navigation.navigate('Scan');
@@ -66,8 +58,7 @@ export default class Products extends Component {
                             data={this.state.productList}
                             renderItem={
                                 ({item, index}) => <Item
-                                                products={item}
-                                                index={index}
+                                                index={index} 
                                                 title={item.product_name} 
                                                 uri={item.image_small_url}
                                                 id={item.id}
@@ -97,22 +88,18 @@ class Item extends Component {
 
     render () {
         return (
-            <View style={[styles.list, (this.props.index%2 == 0) ? styles.jambotron : ""]}>
+            <View style={[styles.list, (this.props.index%2 == 0) ? styles.jambotron : "", display: "flex"]}>
                 <Image
                     style={styles.margin}
-                    style={styles.img}
+                    style={{width: "50%", height: 250}}
                     source={{uri: this.props.uri}}
                 />
-                <Text style={[styles.listName, styles.margin, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{this.props.title}</Text>
-                <Text style={[styles.listText, {marginTop: 15}, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Expire at : {this.props.expire_at}</Text>
-                <Text style={[styles.listText, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Quantity : {this.props.qty}</Text>
+                <Text style={[styles.listName, styles.margin]}>{this.props.title}</Text>
+                <Text style={[styles.listText, {marginTop: 15}]}>Expire at : {this.props.expire_at}</Text>
+                <Text style={[styles.listText]}>Quantity : {this.props.qty}</Text>
                 <Btn
-                    buttonStyle={(this.props.index%2 == 0) ? {borderColor: "#FFF"} : {borderColor: "#e74c3c"}}
-                    titleStyle={(this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
-                    iconColor={(this.props.index%2 == 0) ? "#FFF" : "#e74c3c"}
                     style={styles.margin}
                     itemId={this.props.id}
-                    index={this.props.index}
                 />
             </View>
         );
@@ -124,23 +111,21 @@ const styles = StyleSheet.create({
         margin: 15
     },
     list: {
-        display: "flex",
+        width: "100%"
     },
     listName: {
         textAlign: "center",
         fontWeight: "700",
+        color: "#c0392b",
         fontSize: 30
-    },
-    img: {
-        width: "100%", 
-        height: 250
     },
     listText: {
         textAlign: "center",
+        color: "#e74c3c",
         fontSize: 15
     },
     jambotron: {
-        backgroundColor: "#e74c3c"
+        backgroundColor: "#000"
     },
     loading: {
         marginTop: "50%",

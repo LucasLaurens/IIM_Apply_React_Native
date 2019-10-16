@@ -14,14 +14,18 @@ class Btn extends Component {
             <View>
 
                 <Button
-                    buttonStyle={this.props.buttonStyle}
-                    titleStyle={this.props.titleStyle}
+                    buttonStyle= {{
+                        borderColor: "#fff"
+                    }}
+                    titleStyle={{
+                        color: "#fff"
+                    }}
                     icon={
                         <Icon
                         name="arrow-right"
                         size={15}
                         style={{marginRight: 15}}
-                        color={this.props.iconColor}
+                        color="#fff"
                         />
                     }
                     style={{marginTop: 15}}
@@ -30,7 +34,6 @@ class Btn extends Component {
                     onPress={() => {
                         this.props.navigation.navigate('Single', {
                             itemId: this.props.itemId,
-                            index: this.props.index
                         });
                     }}
                 />
