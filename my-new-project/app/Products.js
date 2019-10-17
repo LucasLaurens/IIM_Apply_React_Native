@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, FlatList, Text, StyleSheet, Image } from 'react-native';
 import Btn from './utilities/Button';
-import { Button } from 'react-native-elements';
+import { Button, Icon, SearchBar } from 'react-native-elements';
 
 export default class Products extends Component {
 
@@ -13,12 +13,13 @@ export default class Products extends Component {
         super(props)
         this.state = {
             productList: [],
-            isLoading: false
+            isLoading: false,
+            search: '',
         }
     }
 
     componentDidMount() {
-        return fetch("https://fr-en.openfoodfacts.org/category/waters.json", {
+        return fetch("https://fr-en.openfoodfacts.org/category/vegetables-based-foods.json", {
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
@@ -40,15 +41,26 @@ export default class Products extends Component {
         })
     }
 
+    updateSearch = search => {
+        this.setState({ search });
+    };
+
           
     render(){
         if(this.state.isLoading){
+            const { search } = this.state;
+            let filtered = this.state.productList.filter(
+                (item) => {
+                    return item.product_name.indexOf(this.state.search) !== -1
+                }
+            )
             return (
                 <View>
                     <View >
                         <Button
                             buttonStyle= {{
-                                backgroundColor: "#c0392b"
+                                backgroundColor: "#c0392b",
+                                borderRadius: 0
                             }}
                             titleStyle={{
                                 color: "#fff",
@@ -62,17 +74,27 @@ export default class Products extends Component {
                         />
                     </View>
                     <View>
+                    <SearchBar
+                        containerStyle={{
+                            backgroundColor: "#c0392b"
+                        }}
+                        placeholder="Type Here..."
+                        onChangeText={this.updateSearch}
+                        value={search}
+                        ref={search => this.search = search}
+                    />
+                    </View>
+                    <View>
                         <FlatList
-                            data={this.state.productList}
+                            data={filtered}
                             renderItem={
                                 ({item, index}) => <Item
-                                                products={item}
-                                                index={index}
-                                                title={item.product_name} 
-                                                uri={item.image_small_url}
-                                                id={item.id}
-                                                expire_at={item.expiration_date}
-                                                qty={item.product_quantity} />
+                                                    products={item}
+                                                    index={index}
+                                                    title={item.product_name} 
+                                                    uri={item.image_small_url}
+                                                    id={item.id}
+                                                />
                                 }
                             keyExtractor={({id}, i) => id }
                             />
@@ -81,8 +103,10 @@ export default class Products extends Component {
             )
         } else {
             return (
-                <View>
-                    <Text style={styles.loading}>Loading...</Text>
+                <View style={{backgroundColor: "#000", height: "100%"}}>
+                    <Text 
+                        style={styles.loading}
+                    >Loading...</Text>
                 </View>
             )
         }
@@ -104,8 +128,6 @@ class Item extends Component {
                     source={{uri: this.props.uri}}
                 />
                 <Text style={[styles.listName, styles.margin, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{this.props.title}</Text>
-                <Text style={[styles.listText, {marginTop: 15}, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Expire at : {this.props.expire_at}</Text>
-                <Text style={[styles.listText, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>Quantity : {this.props.qty}</Text>
                 <Btn
                     buttonStyle={(this.props.index%2 == 0) ? {borderColor: "#FFF"} : {borderColor: "#e74c3c"}}
                     titleStyle={(this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
@@ -143,9 +165,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#e74c3c"
     },
     loading: {
+        color: "#fff",
         marginTop: "50%",
-        marginLeft: "25%",
-        fontSize: 35,
+        marginLeft: "35%",
+        fontSize: 50,
         fontWeight: "700"
     }
 
