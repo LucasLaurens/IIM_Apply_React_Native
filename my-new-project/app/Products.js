@@ -15,11 +15,16 @@ export default class Products extends Component {
             productList: [],
             isLoading: false,
             search: '',
+            page: 1
         }
     }
 
     componentDidMount() {
-        return fetch("https://fr-en.openfoodfacts.org/category/vegetables-based-foods.json", {
+        this.updatePagination()
+    }
+
+    updatePagination () {
+        return fetch(`https://fr-en.openfoodfacts.org/category/vegetables-based-foods/${this.state.page}.json`, {
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
@@ -33,7 +38,7 @@ export default class Products extends Component {
         })
         .then(responseJson => {
             this.setState({
-                productList: responseJson.products,
+                productList: [...this.state.productList , ...responseJson.products],
                 isLoading: true
             })
         }).catch(e => {
@@ -44,6 +49,14 @@ export default class Products extends Component {
     updateSearch = search => {
         this.setState({ search });
     };
+
+    updateMoreData = () =>{
+        this.setState({
+            page: this.state.page + 1
+        }, () => {
+            this.updatePagination()
+        })
+    }
 
           
     render(){
@@ -99,6 +112,8 @@ export default class Products extends Component {
                         <Text style={[styles.listName, styles.margin, {color: "#e74c3c"}]}>Il n'y a pas de légumes avec cette recherche...</Text>
                         :  <FlatList
                             data={filtered}
+                            onEndReachedThreshold={0.1}
+                            onEndReached={this.updateMoreData}
                             renderItem={
                                 ({item, index}) => <Item
                                                     products={item}
@@ -108,7 +123,7 @@ export default class Products extends Component {
                                                     id={item.id}
                                                 />
                                 }
-                            keyExtractor={({id}, i) => id }
+                            keyExtractor={(item) => item.id }
                             />
                         }
                     </View>
