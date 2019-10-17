@@ -51,16 +51,18 @@ export default class Products extends Component {
             const { search } = this.state;
             let filtered = this.state.productList.filter(
                 (item) => {
-                    return item.product_name.indexOf(this.state.search) !== -1
+                    return item.product_name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
                 }
             )
+            console.log(filtered)
             return (
                 <View>
                     <View >
                         <Button
                             buttonStyle= {{
                                 backgroundColor: "#c0392b",
-                                borderRadius: 0
+                                borderRadius: 0,
+                                height: 50
                             }}
                             titleStyle={{
                                 color: "#fff",
@@ -71,6 +73,14 @@ export default class Products extends Component {
                             onPress={() => {
                                 this.props.navigation.navigate('Scan');
                             }}
+                            icon={
+                                <Icon
+                                    containerStyle={{marginRight: 15}}
+                                    name="barcode"
+                                    type='font-awesome'
+                                    color='#fff'
+                                />
+                            }
                         />
                     </View>
                     <View>
@@ -85,7 +95,9 @@ export default class Products extends Component {
                     />
                     </View>
                     <View>
-                        <FlatList
+                    {filtered.length == 0 ? 
+                        <Text style={[styles.listName, styles.margin, {color: "#e74c3c"}]}>Il n'y a pas de légumes avec cette recherche...</Text>
+                        :  <FlatList
                             data={filtered}
                             renderItem={
                                 ({item, index}) => <Item
@@ -98,6 +110,7 @@ export default class Products extends Component {
                                 }
                             keyExtractor={({id}, i) => id }
                             />
+                        }
                     </View>
                 </View>
             )
@@ -129,7 +142,7 @@ class Item extends Component {
                 />
                 <Text style={[styles.listName, styles.margin, (this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>{this.props.title}</Text>
                 <Btn
-                    buttonStyle={(this.props.index%2 == 0) ? {borderColor: "#FFF"} : {borderColor: "#e74c3c"}}
+                    buttonStyle={(this.props.index%2 == 0) ? {borderColor: "#FFF"} : {borderColor: "#e74c3c"}, {borderRadius: 0}}
                     titleStyle={(this.props.index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
                     iconColor={(this.props.index%2 == 0) ? "#FFF" : "#e74c3c"}
                     style={styles.margin}

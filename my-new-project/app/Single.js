@@ -62,15 +62,17 @@ export default class extends Component {
                     <Text style={[styles.text, styles.margin, (index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}]}>categories ({product.categories}) </Text>
                     <Text style={[styles.listText, {marginTop: 15}, (index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}, {textAlign: "center"}]}>Expire at : {product.expiration_date ? product.expiration_date : "Il n'y a pas de données"}</Text>
                     <Text style={[styles.listText, (index%2 == 0) ? {color: "#FFF"} : {color: "#e74c3c"}, {textAlign: "center"}]}>Quantity : {product.quantity}</Text>
-                    <Button
-                        type="solid"
-                        title="Products"
-                        buttonStyle={[(index%2 == 0) ? {backgroundColor: "#FFF"} : {backgroundColor: "#e74c3c"}, {marginTop: 15}]}
-                        titleStyle={(index%2 != 0) ? {color: "#FFF"} : {color: "#e74c3c"}}
-                        onPress={() => {
-                            this.props.navigation.navigate('Products');
-                        }}
-                    />
+                    <View style={{position: "absolute", bottom: 0, width: "100%"}}>
+                        <Button
+                            type="solid"
+                            title="Products"
+                            buttonStyle={[(index%2 == 0) ? {backgroundColor: "#FFF"} : {backgroundColor: "#e74c3c"}, {height: 100, marginTop: 15, borderRadius: 0, width: "100%"}]}
+                            titleStyle={(index%2 != 0) ? {color: "#FFF"} : {color: "#e74c3c", fontWeight: "700", fontSize: 35}}
+                            onPress={() => {
+                                this.props.navigation.navigate('Products');
+                            }}
+                        />
+                    </View>
                 </View>
             )
         }
